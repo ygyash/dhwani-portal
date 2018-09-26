@@ -24,9 +24,6 @@ router.get("/signup",function(req,res){
 });
 
 router.post("/signup",function(req,res){
-    if(req.isAuthenticated()){
-        return res.redirect("/dashboard");
-    }
     var newUser=new User({username:req.body.username});
     User.register(newUser,req.body.password,function(err,user){
         if(err) {
@@ -43,7 +40,33 @@ router.get("/dashboard",function(req,res){
     if(req.isAuthenticated()===false){
         return res.redirect("/");
     }
-    res.render("/dashboard.ejs");
+    res.render("dashboard.ejs");
 });
+
+router.get("/login",function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect("/dashboard");
+    }
+    res.render("login.ejs");
+});
+
+router.post("/login",passport.authenticate("local",{
+    successRedirect: "/dashboard",
+    failureRedirect: "/login"
+}),function(req,res){
+
+});
+
+
+
+
+
+
+
+router.get("/logout",function(req,res){
+    req.logout();
+    res.redirect("/signup");
+});
+
 
 module.exports=router;
