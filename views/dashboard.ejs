@@ -1,5 +1,12 @@
 <% include partials/header.ejs %>
 
 <h1>Heelloo world</h1>
+
+<% for(var i=0;i<slot.length;i++) { %>
+    <li><%= (slot[i].start+17)%24 %> - <%= (slot[i].end+17)%24 %></li>
+<% } %>
+
+<a href="/dashboard/addSlot">Add Slot</a>
+
 <a href="/logout">Log Out</a>
 <% include partials/footer.ejs %>

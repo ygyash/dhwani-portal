@@ -3,10 +3,14 @@
 var express=require("express");
 var router=express.Router();
 
+// Models 
+
+var Slot=require("../models/slot.js");
+var User=require("../models/user.js");
+
 // authentication
 
 var passport=require("passport");
-var User=require("../models/user.js");
 
 
 router.get("/",function(req,res){
@@ -40,7 +44,14 @@ router.get("/dashboard",function(req,res){
     if(req.isAuthenticated()===false){
         return res.redirect("/");
     }
-    res.render("dashboard.ejs");
+    Slot.find({},function(err,slot){
+        if(err) {
+            console.log(err);
+        }
+        else {
+            res.render("dashboard.ejs",{slot:slot});
+        }
+    });
 });
 
 router.get("/login",function(req,res){
@@ -57,16 +68,9 @@ router.post("/login",passport.authenticate("local",{
 
 });
 
-
-
-
-
-
-
 router.get("/logout",function(req,res){
     req.logout();
     res.redirect("/signup");
 });
-
 
 module.exports=router;

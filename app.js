@@ -15,7 +15,7 @@ mongoose.connect(mongoDB,{ useNewUrlParser: true });
 // Models
 
 var User=require("./models/user.js");
-
+var Slot=require("./models/slot.js");
 
 // Passport
 
@@ -32,10 +32,19 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Enable data of user
+
+app.use(function(req,res,next){
+    res.locals.currentUser=req.user;
+    next();
+});
+
 // Routes
 
 var indexRoute=require("./routes/index.js");
+var dashboardRoute=require("./routes/dashboard.js");
 app.use(indexRoute);
+app.use(dashboardRoute);
 
 app.listen(3000,function(){
     console.log("Server Running on Local host 3000");
