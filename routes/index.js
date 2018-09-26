@@ -23,12 +23,27 @@ router.get("/signup",function(req,res){
     res.render("signup.ejs");
 });
 
-
-
-
-function isLoggedIn(req,res,next){
+router.post("/signup",function(req,res){
     if(req.isAuthenticated()){
-        return next();
+        return res.redirect("/dashboard");
     }
-    res.redirect("/login");
-}
+    var newUser=new User({username:req.body.username});
+    User.register(newUser,req.body.password,function(err,user){
+        if(err) {
+            console.log(err);
+            return res.redirect("/");
+        }
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/dashboard");
+        });
+    });
+});
+
+router.get("/dashboard",function(req,res){
+    if(req.isAuthenticated()===false){
+        return res.redirect("/");
+    }
+    res.render("/dashboard.ejs");
+});
+
+module.exports=router;

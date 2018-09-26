@@ -34,10 +34,8 @@ passport.deserializeUser(User.deserializeUser());
 
 // Routes
 
-app.get("/",function(req,res){
-    res.send("Hello");
-});
-
+var indexRoute=require("./routes/index.js");
+app.use(indexRoute);
 
 app.listen(3000,function(){
     console.log("Server Running on Local host 3000");
