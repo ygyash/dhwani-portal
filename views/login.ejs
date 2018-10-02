@@ -1,9 +1,35 @@
 <% include partials/header.ejs %>
 
-<form method="POST" action="/login">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button>Login</button>
-</form>
+<div class="col-md-8" >
+    <div class="card">
+        <div class="card-reader card-header-primary">
+            <h4 class="card-title">Log in</h4>
+        </div>
+    <div class="card-body">
+        <form action="/login" method="POST">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label class="bmd-label-floating">Username</label>
+                            <input type="text" name="username" class="form-control" >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label  class="bmd-label-floating">Password</label>
+                        <input type="password" name="password" class="form-control" >
+                    </div>
+                </div>
+            </div>
+            <button  class="btn btn-default pull-right"> Register your band</button>
+            <button type="submit" class="btn btn-primary pull-right">Log in</button>
+            
+            <div class="clearfix"></div>
+        </form>
+    </div>
+    </div>
+</div>
 
 <% include partials/footer.ejs %>
