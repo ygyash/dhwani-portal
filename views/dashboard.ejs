@@ -3,8 +3,7 @@
 <h1>Heelloo world</h1>
 
 <% for(var i=0;i<slot.length;i++) { %>
-    <li><%= slot[i].start%31 + ":" %> - <%= slot[i].start-
-    <% if(slot[i].start%2===1) { %>
+    <li><%= slot[i].start%31 + ":" %> - <% if(slot[i].start%2===1) { %>
 
 
     <% } else {%>
