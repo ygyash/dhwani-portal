@@ -2,7 +2,47 @@
 
 <h1>Heelloo world</h1>
 
+<% for(var i=0;i<slot.length;i++) {  %>
+<%  var time=slot[i].start,hr=0,min=0;  %>
+<%  if(time<31) {
+        hr=(17+parseInt((time-17)/2)).toString();
+        if(time%2===0) {
+            min="30";
+        } else {
+            min="00"
+        }
+    }
+    else  {
+        time-=31;
+        hr=(parseInt(time/2)).toString();
+        if(time%2===1) {
+            min="30";
+        } else {
+            min="00"
+        }
+    } %>
+    <%  var time2=slot[i].end,hr2=0,min2=0;  %>
+<%  if(time2<31) {
+        hr2=(17+parseInt((time2-17)/2)).toString();
+        if(time2%2===0) {
+            min2="30";
+        } else {
+            min2="00"
+        }
+    }
+    else  {
+        time2-=31;
+        hr2=(parseInt(time2/2)).toString();
+        if(time2%2===1) {
+            min2="30";
+        } else {
+            min2="00"
+        }
+    } %>
 
+    
+    <li> <%= hr+":"+min %> - <%= hr2+":"+min2 %>  </li>
+<% } %>
 
 <a href="/dashboard/addSlot">Add Slot</a>
 

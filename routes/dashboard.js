@@ -77,7 +77,6 @@ router.post("/dashboard/addSlot",function(req,res){
                     start:start,
                     end:end
                 }
-                console.log(start+" "+end);
                 Slot.create(obj,function(err,slot){
                     if(err) {
                         console.log(err);
