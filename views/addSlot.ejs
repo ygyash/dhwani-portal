@@ -1,12 +1,12 @@
 <% include partials/header.ejs %>
 
-<form method="POST" action="/dashboard/addSlot">
-    <select name="duration">
+<form onsubmit="return validateform()" method="POST" action="/dashboard/addSlot">
+    <select id="zone" name="duration">
         <option value="one">1.5</option>
         <option value="two">2</option>
     </select>
     
-    <input id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Time" onclcik="myTime()">
+    <input id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Time">
     <button>Add</button>
 </form>
 
@@ -16,6 +16,69 @@
         'minTime': '5:00pm',
         'maxTime': '5:00am',
     });
+
+    function validateform() {
+        if($("#duration").val()===""||$("zone").val()==="") {
+            alert("Your life too is empty!!!");
+            return false;
+        }
+        var timeVal=$("#duration").val();
+        var start=0;
+        var start_time=parseInt(timeVal);
+        if(start_time<10) {
+            start=31;
+            start+=start_time*2;
+        }
+        else {
+            start+=17;
+            start+=(start_time-17)*2;
+        }
+        if(timeVal.charAt(3)==='3') {
+            start+=1;
+        }
+        var duration=$("#zone").val();
+        var end=0;
+        if(duration==='one') {
+            end=start+3;
+        } else {
+            end=start+4;
+        }
+        start=parseInt(start);
+        end=parseInt(end);
+           
+        var flag=true;
+        var arrs=[],arre=[];
+
+
+        <% for(var i=0;i<interval.length;i++) { %>
+            arrs.push(<%= interval[i].start %>);
+            arre.push(<%= interval[i].end %>);
+        <% } %>
+
+        for(var i=0;i<arrs.length;i++) {
+            if(start>=arrs[i] && start< arre[i] && end>= arre[i] ) {
+                flag = false;
+            }
+            if(start<arrs[i]&&end>arrs[i]&&end<=arre[i]) {
+                flag = false;
+            }
+            if(start<=arrs[i]&&end>=arre[i]) {
+                flag = false;
+            }
+            if(start>=arrs[i]&&start<=arre[i]&&end<=arre[i]&&end>=arrs[i]) {
+                flag=false;
+            }
+        }
+
+
+        if(flag===false) {
+            alert("Your mathematics......");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 <% include partials/footer.ejs %>
+
+
