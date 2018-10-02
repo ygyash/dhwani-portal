@@ -1,4 +1,3 @@
-
 // Initial Setup
 
 var express=require("express");
@@ -29,7 +28,14 @@ router.get("/dashboard/addSlot",function(req,res){
                 res.redirect("/");
             }
             else {
-                res.render("addSlot.ejs");
+                Slot.find({},function(err,interval){
+                    if(err) {
+                        return res.redirect("/");
+                    } else {
+                        res.render("addSlot.ejs",{interval:interval});
+                    }
+                });
+                
             }
         }
     });
