@@ -1,9 +1,21 @@
 <% include partials/header.ejs %>
 
 <form method="POST" action="/dashboard/addSlot">
-    <input type="number" name="slot[start]" placeholder="From">
-    <input type="number" name="slot[end]" placeholder="To">
+    <select name="duration">
+        <option value="one">1.5</option>
+        <option value="two">2</option>
+    </select>
+    
+    <input id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Time" onclcik="myTime()">
     <button>Add</button>
 </form>
+
+<script>
+    $('#duration').timepicker({ 
+        'timeFormat': 'H:i',
+        'minTime': '5:00pm',
+        'maxTime': '5:00am',
+    });
+</script>
 
 <% include partials/footer.ejs %>

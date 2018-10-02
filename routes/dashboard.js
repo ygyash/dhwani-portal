@@ -49,7 +49,35 @@ router.post("/dashboard/addSlot",function(req,res){
                 res.redirect("/");
             }
             else {
-                Slot.create(req.body.slot,function(err,slot){
+                var timeVal=req.body.start;
+                var start=0;
+                var start_time=parseInt(timeVal);
+                if(start_time<10) {
+                    start=31;
+                    start+=start_time*2;
+                }
+                else {
+                    start+=17;
+                    start+=(start_time-17)*2;
+                }
+                if(timeVal.charAt(3)==='3') {
+                    start+=1;
+                }
+                var duration=req.body.duration;
+                var end=0;
+                if(duration==='one') {
+                    end=start+3;
+                } else {
+                    end=start+4;
+                }
+                start=parseInt(start);
+                end=parseInt(end);
+                var obj={
+                    start:start,
+                    end:end
+                }
+                console.log(start+" "+end);
+                Slot.create(obj,function(err,slot){
                     if(err) {
                         console.log(err);
                         res.redirect("/");
