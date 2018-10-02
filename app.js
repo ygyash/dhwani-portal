@@ -1,3 +1,4 @@
+
 // Initial Setup
 
 var express=require("express");
@@ -5,12 +6,17 @@ var app=express();
 var bodyParser=require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine","ejs");
+//static files 
+
+app.use('/public', express.static('public'));
 
 // Mongoose 
 
 var mongoose=require("mongoose");
 var mongoDB="mongodb://skbro:sk12345@ds115263.mlab.com:15263/dhwani";
 mongoose.connect(mongoDB,{ useNewUrlParser: true });
+
+
 
 // Models
 
