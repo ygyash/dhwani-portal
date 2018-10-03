@@ -13,7 +13,7 @@ app.use('/public', express.static('public'));
 // Mongoose 
 
 var mongoose=require("mongoose");
-var mongoDB="mongodb://skbro:sk12345@ds115263.mlab.com:15263/dhwani";
+var mongoDB="mongodb://dhwani:dhwanibitm123@ds235180.mlab.com:35180/dhwani";
 mongoose.connect(mongoDB,{ useNewUrlParser: true });
 
 
@@ -49,8 +49,10 @@ app.use(function(req,res,next){
 
 var indexRoute=require("./routes/index.js");
 var dashboardRoute=require("./routes/dashboard.js");
+var notifRoute = require("./routes/notification.js");
 app.use(indexRoute);
 app.use(dashboardRoute);
+app.use(notifRoute);
 
 app.listen(3000,function(){
     console.log("Server Running on Local host 3000");
