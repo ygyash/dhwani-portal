@@ -2,7 +2,7 @@
 
 <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Recent Activities</h4>
+              <h4 class="card-title">Recent Activities </h4>
               <p class="card-category">All the slots booked are displayed here.
               </p>
             </div>
@@ -10,11 +10,47 @@
               <div class="row">
                 <div class="col-md-6">
                   <h4 class="card-title"></h4>
-                  <% for(var i = 0; i < event.length ; i++){ %>
+                  <% for(var i = 0; i < slot.length ; i++){ %>
+                    <%  var time=slot[i].start,hr=0,min=0;  %>
+                    <%  if(time<31) {
+                            hr=(17+parseInt((time-17)/2)).toString();
+                            if(time%2===0) {
+                                min="30";
+                            } else {
+                                min="00"
+                            }
+                        }
+                        else  {
+                            time-=31;
+                            hr=(parseInt(time/2)).toString();
+                            if(time%2===1) {
+                                min="30";
+                            } else {
+                                min="00"
+                            }
+                        } %>
+                        <%  var time2=slot[i].end,hr2=0,min2=0;  %>
+                    <%  if(time2<31) {
+                            hr2=(17+parseInt((time2-17)/2)).toString();
+                            if(time2%2===0) {
+                                min2="30";
+                            } else {
+                                min2="00"
+                            }
+                        }
+                        else  {
+                            time2-=31;
+                            hr2=(parseInt(time2/2)).toString();
+                            if(time2%2===1) {
+                                min2="30";
+                            } else {
+                                min2="00"
+                            }
+                        } %>
                     <div class="alert alert-warning"><span>
-                        <%= event[i].owner['username'] %> 
+                        <%= slot[i].owner['username'] %> 
                         has booked the slot                    
-                        <%= event[i].start %> - <%= event[i].end %>
+                        <%= hr+":"+min %> - <%= hr2+":"+min2 %>
                     </span>
                     </div>
                     <% } %>

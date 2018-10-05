@@ -1,14 +1,159 @@
 <% include partials/header.ejs %>
 
-<form onsubmit="return validateform()" method="POST" action="/dashboard/addSlot">
-    <select id="zone" name="duration">
-        <option value="one">1.5</option>
-        <option value="two">2</option>
+<style>
+
+@media only screen and (max-width: 600px) {
+    .content {
+        width: 100% !important;
+    }
+    h2, select, #duration, form button {
+        width: 100% !important;
+    }
+    form {
+        width: 100% !important;
+        padding: 10% !important;
+    }
+    form select {
+        padding-left: 40% !important;
+    }
+}
+
+</style>
+
+<div class="content" style="width:60%; float: right">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+            <div  style="background :#00bcd4" class="card-header card-header-primary">
+                <h4 class="card-title ">Booked Slots</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Start Time
+                    </th>
+                    <th>
+                        End Time
+                    </th>
+                    </thead>
+                    <tbody>
+
+<% var arr=[]; %>
+<% for(var i=0;i<interval.length;i++) {  %>
+<%  var time=interval[i].start,hr=0,min=0;  %>
+<%  if(time<31) {
+        hr=(17+parseInt((time-17)/2)).toString();
+        if(time%2===0) {
+            min="30";
+        } else {
+            min="00"
+        }
+    }
+    else  {
+        time-=31;
+        hr=(parseInt(time/2)).toString();
+        if(time%2===1) {
+            min="30";
+        } else {
+            min="00"
+        }
+    } %>
+    <%  var time2=interval[i].end,hr2=0,min2=0;  %>
+<%  if(time2<31) {
+        hr2=(17+parseInt((time2-17)/2)).toString();
+        if(time2%2===0) {
+            min2="30";
+        } else {
+            min2="00"
+        }
+    }
+    else  {
+        time2-=31;
+        hr2=(parseInt(time2/2)).toString();
+        if(time2%2===1) {
+            min2="30";
+        } else {
+            min2="00"
+        }
+    } %>
+   
+    <% arr.push({
+        id: i+1,
+        username: interval[i].owner.username,
+        start: interval[i].start,
+        sttime: hr+":"+min,
+        endtime: hr2+":"+min2
+    }); %>
+<% } %>
+
+<% arr.sort(function(a, b){
+    var keyA = a.start,
+        keyB = b.start;
+    // Compare the 2 dates
+    if(keyA < keyB) return -1;
+    if(keyA > keyB) return 1;
+    return 0;
+});  %>
+
+<% for(var i=0;i<arr.length;i++) { %>
+    <tr>
+    <td><%= i+1 %></td>
+    <td><%= arr[i].username %></td>
+    <td><%= arr[i].sttime %></td>
+    <td><%= arr[i].endtime %></td>
+    </tr>
+<% } %>
+
+
+        </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<form style="width:40%; display:inline-block; padding-top:10px;" onsubmit="return validateform()" method="POST" action="/dashboard/addSlot">
+    <h2>Slot</h2>
+    <select class="btn btn-info" id="zone" name="duration">
+        <option value="one">1.5 hours</option>
+        <option value="two">2 hours</option>
     </select>
-    
-    <input id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Time">
-    <button>Add</button>
+    <input class="btn btn-warning" id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Start Time">
+    <button class="btn btn-success">Add</button>
 </form>
+
+<style>
+
+h2, select, #duration, form button {
+  margin-bottom: 10%;
+  font-family: Cursive;
+  display: block;
+    width: 80%;
+    text-align: center;
+}
+
+select {
+    padding-left: 25% !important;
+    border-radius: 5%;
+}
+
+form {
+    padding: 10%;
+}
+
+</style>
 
 <script>
     $('#duration').timepicker({ 
@@ -86,5 +231,3 @@
 </script>
 
 <% include partials/footer.ejs %>
-
-

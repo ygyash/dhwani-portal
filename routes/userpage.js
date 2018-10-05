@@ -12,19 +12,20 @@ var User=require("../models/user.js");
 
 var passport=require("passport");
 
-router.get("/notif",function(req,res){
+//user routing
+router.get("/user",function(req,res){
    if(req.isAuthenticated()==false){
             res.redirect("/");
    }
-   console.log("Notification page loading.")
+   console.log("User page loading.")
   Slot.find({},function(err,slot){
       if(err){
           console.log(err);
       }         
-        console.log("Notification page loaded.");
-    res.render("notifications.ejs",{slot:slot});
-
+        console.log("User page loaded.");
+    res.render("user.ejs",{slot:slot});
   });
+ //res.render("user.ejs");
 });
 
 module.exports=router;
