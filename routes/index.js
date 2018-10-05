@@ -17,7 +17,7 @@ router.get("/",function(req,res){
     if(req.isAuthenticated()){
         return res.redirect("/dashboard");
     }
-    res.redirect("/signup");
+    res.redirect("/login");
 });
 
 router.get("/signup",function(req,res){
@@ -49,7 +49,12 @@ router.get("/dashboard",function(req,res){
             console.log(err);
         }
         else {
-            res.render("dashboard.ejs",{slot:slot});
+            User.find({},function(err,user){
+                if(err){
+                    console.log(err);
+                }
+                res.render("dashboard.ejs",{slot:slot,user:user});
+            });
         }
     });
 });
