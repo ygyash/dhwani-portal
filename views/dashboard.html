@@ -128,51 +128,7 @@
                         </p>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                      <% for(var i =0; i<slot.length ; i++){ %> 
-                        <%  var time=slot[i].start,hr=0,min=0;  %>
-                            <%  if(time<31) {
-                                    hr=(17+parseInt((time-17)/2)).toString();
-                                    if(time%2===0) {
-                                        min="30";
-                                    } else {
-                                        min="00"
-                                    }
-                                }
-                                else  {
-                                    time-=31;
-                                    hr=(parseInt(time/2)).toString();
-                                    if(time%2===1) {
-                                        min="30";
-                                    } else {
-                                        min="00"
-                                    }
-                                } %>
-                                <%  var time2=slot[i].end,hr2=0,min2=0;  %>
-                            <%  if(time2<31) {
-                                    hr2=(17+parseInt((time2-17)/2)).toString();
-                                    if(time2%2===0) {
-                                        min2="30";
-                                    } else {
-                                        min2="00"
-                                    }
-                                }
-                                else  {
-                                    time2-=31;
-                                    hr2=(parseInt(time2/2)).toString();
-                                    if(time2%2===1) {
-                                        min2="30";
-                                    } else {
-                                        min2="00"
-                                    }
-                                } %> 
-                        <a class="dropdown-item" href="/notif">
-                            <span> 
-                               <%= slot[i].owner['username'] %> 
-                                has booked the slot                    
-                                <%= hr+":"+min %> - <%= hr2+":"+min2 %> 
-                           </span>
-                         </a>
-                      <% } %>
+                 
                       </div>
                     </li>
                     <li class="nav-item">
@@ -196,3 +152,34 @@
               
           
         
+<div>
+<h1>Slot Timings</h1>
+
+
+
+
+
+<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-header card-header-warning card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">content_copy</i>
+        </div>
+        <p class="card-category">Slots booked</p>
+        <h3 class="card-title"><%= slot.length %>
+          <small>Slots</small>
+        </h3>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="material-icons text-warning">warning</i>
+          <a href="/dashboard/addSlot" class="warning-link">Add slots as soon as possible</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<input type="button" value="Book Today's Slot" class="btn btn-danger" onclick="window.location.href='/dashboard/addSlot'" /> 
+ 
+<a href="/logout">Log Out</a>
+<% include partials/footer.ejs %>

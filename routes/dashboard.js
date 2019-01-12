@@ -25,9 +25,7 @@ router.get("/dashboard/addSlot",function(req,res){
         else {
             if(slot.length>0) {
                 console.log("Done for the day!");
-                popup.alert({
-                    content:'You are done for the day!'
-                });
+                
                 res.redirect("/");
             }
             else {

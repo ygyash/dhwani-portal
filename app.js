@@ -51,10 +51,12 @@ var indexRoute=require("./routes/index.js");
 var dashboardRoute=require("./routes/dashboard.js");
 var notifRoute = require("./routes/notification.js");
 var userRoute = require("./routes/userpage.js");
+var coverRoute = require("./routes/covers.js");
 app.use(indexRoute);
 app.use(dashboardRoute);
 app.use(notifRoute);
 app.use(userRoute);
+app.use(coverRoute)
 
 app.listen(3000,function(){
     console.log("Server Running on Local host 3000");
