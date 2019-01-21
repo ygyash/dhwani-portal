@@ -112,7 +112,7 @@
                   
 
                   <li class="nav-item">
-                      <a class="nav-link" href="/dashboard">
+                      <a class="nav-link" href="dashboard.html">
                         <i class="material-icons">dashboard</i>
                         <p class="d-lg-none d-md-block">
                           Dashboard
@@ -120,7 +120,7 @@
                       </a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link" href="/notif" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="nav-link" href="notifications.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
                         <span id="notif-length" class="notification">5</span>
                         <p class="d-lg-none d-md-block">
@@ -388,7 +388,6 @@
               return console.log("Some Error");
           }
           $("#slot-length").html(res.len+"&nbsp;<small>Slots</small>");
-          $("#notif-length").html(res.len);
       });
       $.ajax({
         type: 'GET',
