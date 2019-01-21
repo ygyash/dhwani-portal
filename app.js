@@ -58,6 +58,6 @@ app.use(notifRoute);
 app.use(userRoute);
 app.use(coverRoute)
 
-app.listen(3000,function(){
-    console.log("Server Running on Local host 3000");
+app.listen(5000,function(){
+    console.log("Server Running on Local host 5000");
 });

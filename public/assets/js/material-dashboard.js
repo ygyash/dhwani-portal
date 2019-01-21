@@ -15,6 +15,10 @@
 
  */
 
+
+
+ 
+
 (function() {
   isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -51,7 +55,7 @@ var seq2 = 0,
 
 $(document).ready(function() {
 
-  $('body').bootstrapMaterialDesign();
+  
 
   $sidebar = $('.sidebar');
 
@@ -273,14 +277,14 @@ md = {
     }
   },
 
-  showNotification: function(from, align) {
+  showNotification: function(from, align,msg) {
     type = ['', 'info', 'danger', 'success', 'warning', 'primary'];
 
     color = Math.floor((Math.random() * 5) + 1);
 
     $.notify({
       icon: "add_alert",
-      message: "Welcome to <b>Material Dashboard</b> - a beautiful freebie for every web developer."
+      message: msg
 
     }, {
       type: type[color],
