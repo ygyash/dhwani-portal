@@ -1,7 +1,6 @@
 var requrl="http://localhost:5000";
 $(window).ready(function(){
 
-    
       $.ajax({
           type: 'GET',
             url : requrl+"/dashboard/slotsBooked"
@@ -9,6 +8,7 @@ $(window).ready(function(){
           if(res.success==false) {
               return console.log("Some Error");
           }
+          
           $("#notif-length").html(res.len);
       });
 
