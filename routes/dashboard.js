@@ -13,14 +13,14 @@ var User=require("../models/user.js");
 var passport=require("passport");
 
 router.get("/dashboard/slotsBooked",function(req,res){
-    User.find({},function(err,user){
+    Slot.find({},function(err,slot){
         if(err){
             console.log(err);
             return res.status(200).send({
                 success: false
             }); 
         }
-        return res.status(200).send({success:true,len:user.length});
+        return res.status(200).send({success:true,len:slot.length});
     });
 });
 

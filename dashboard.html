@@ -78,17 +78,17 @@
           <div class="sidebar-wrapper">
             <ul class="nav">
               <li class="nav-item active  ">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="dashboard.html">
                   <i class="material-icons">dashboard</i>
                   <p>Dashboard</p>
                   
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link"><i class="material-icons">notifications</i> <p>Notifications</p></a>
+                <a class="nav-link" href="notifications.html"><i class="material-icons">notifications</i> <p>Notifications</p></a>
               </li>
               <li class="nav-item active">
-                <a href="/coverSong" class="nav-link"><i class="material-icons"></i> <p>Cover Recommender</p></a>
+                <a href="cover-song.html" class="nav-link"><i class="material-icons"></i> <p>Cover Recommender</p></a>
               </li>
               <!-- your sidebar here -->
             </ul>
@@ -122,9 +122,9 @@
                     <li class="nav-item dropdown">
                       <a class="nav-link" href="/notif" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">5</span>
+                        <span id="notif-length" class="notification">5</span>
                         <p class="d-lg-none d-md-block">
-                          Some Actions
+                          Notifications
                         </p>
                       </a>
                       <div id="notif-dropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -132,7 +132,7 @@
                       </div>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/user">
+                      <a class="nav-link" href="user.html">
                         <i class="material-icons">person</i>
                         <p class="d-lg-none d-md-block">
                          Edit Profile
@@ -388,6 +388,7 @@
               return console.log("Some Error");
           }
           $("#slot-length").html(res.len+"&nbsp;<small>Slots</small>");
+          $("#notif-length").html(res.len);
       });
       $.ajax({
         type: 'GET',
@@ -396,7 +397,12 @@
           if(res.success==false) {
               return console.log("Some Error");
           }
-          $("#notif-dropdown").append("<a class=\"dropdown-item\"></a>")
+          else{
+            console.log(res.data);
+          }
+          res.data.forEach(slot => {
+            $("#notif-dropdown").append("<a class=\"dropdown-item\">"+slot.owner+" booked the slot from "+slot.start+" to "+slot.end+"</a>");
+          });
       });
   </script>
 </body>
