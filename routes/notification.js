@@ -13,7 +13,7 @@ var User=require("../models/user.js");
 var passport=require("passport");
 
 router.get("/notif",function(req,res){
-    console.log("Notification page loading.")
+    //console.log("Notification page loading.")
 
     
     Slot.find({},function(err,slot){
@@ -88,12 +88,24 @@ router.get("/notif",function(req,res){
         //console.log(timeSlot);
         slotObject.push(timeSlot);
         }
-        console.log("Notification page loaded.");
+        //console.log("Notification page loaded.");
         //console.log(slotObject);
         res.status(200).json({
             success:true,
             data:slotObject
         })
+    });
+});
+
+router.get("/notifNumber",function(req,res){
+    Slot.find({},function(err,slot){
+        if(err){
+            console.log(err);
+            return res.status(200).json({
+                success: false
+            });
+        }
+        res.status(200).json({success:true,slot}); 
     });
 });
 
