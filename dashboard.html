@@ -120,7 +120,7 @@
                       </a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link" href="/notif" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="nav-link" href="notifications.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
                         <span id="notif-length" class="notification">5</span>
                         <p class="d-lg-none d-md-block">
@@ -216,6 +216,7 @@
   <script src="assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
+  <script src="assets/js/notification.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -379,7 +380,6 @@
     });
   </script>
   <script>
-      var requrl="http://localhost:5000";
       $.ajax({
           type: 'GET',
             url : requrl+"/dashboard/slotsBooked"
@@ -388,22 +388,8 @@
               return console.log("Some Error");
           }
           $("#slot-length").html(res.len+"&nbsp;<small>Slots</small>");
-          $("#notif-length").html(res.len);
       });
-      $.ajax({
-        type: 'GET',
-        url : requrl+"/notif"
-      }).done(function(res){
-          if(res.success==false) {
-              return console.log("Some Error");
-          }
-          else{
-            console.log(res.data);
-          }
-          res.data.forEach(slot => {
-            $("#notif-dropdown").append("<a class=\"dropdown-item\">"+slot.owner+" booked the slot from "+slot.start+" to "+slot.end+"</a>");
-          });
-      });
+     
   </script>
 </body>
 </html>

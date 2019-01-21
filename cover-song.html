@@ -71,37 +71,36 @@
 </head>
 <body class="dark-edition">
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="black" data-image="assets/img/sidebar-2.jpg">
-          <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-    
-          Tip 2: you can also add an image using data-image tag
-      -->
-          <div class="logo" class="simple-text logo-normal">
-                <img src = "assets/img/logo.png" >
-                <a href="http://www.dhwanibitmesra.in">Dhwani Music Club</a>
-          </div>
-          <div class="sidebar-wrapper">
-            <ul class="nav">
-              <li class="nav-item active  ">
-                <a class="nav-link" href="/dashboard">
-                  <i class="material-icons">dashboard</i>
-                  <p>Dashboard</p>
-                  
-                </a>
-              </li>
-              <li class="nav-item active">
-                <a href="/notif" class="nav-link"><i class="material-icons">notifications</i> <p>Notifications</p></a>
-              </li>
-              <li class="nav-item active">
-                <a href="/coverSong" class="nav-link"><i class="material-icons"></i> <p>Cover Recommender</p></a>
-              </li>
-              <!-- your sidebar here -->
-            </ul>
-          </div>
+      <div class="sidebar" data-color="purple" data-background-color="black" data-image="assets/img/sidebar-2.jpg">
+        <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+  
+        Tip 2: you can also add an image using data-image tag
+    -->
+        <div class="logo" class="simple-text logo-normal">
+              <img src = "assets/img/logo.png" >
+              <a href="http://www.dhwanibitmesra.in">Dhwani Music Club</a>
         </div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li class="nav-item active  ">
+              <a class="nav-link" href="dashboard.html">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
+                
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="notifications.html"><i class="material-icons">notifications</i> <p>Notifications</p></a>
+            </li>
+            <li class="nav-item active">
+              <a href="cover-song.html" class="nav-link"><i class="material-icons"></i> <p>Cover Recommender</p></a>
+            </li>
+            <!-- your sidebar here -->
+          </ul>
+        </div>
+      </div>
         <div class="main-panel">
-          <!-- Navbar -->
           <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
               <div class="navbar-wrapper">
@@ -126,63 +125,19 @@
                       </a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link" href="/notif" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <a class="nav-link" href="notifications.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
-                        <span class="notification">5</span>
+                        <span id="notif-length" class="notification">5</span>
                         <p class="d-lg-none d-md-block">
-                          Some Actions
+                          Notifications
                         </p>
                       </a>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                      <% for(var i =0; i<slot.length ; i++){ %> 
-                        <%  var time=slot[i].start,hr=0,min=0;  %>
-                            <%  if(time<31) {
-                                    hr=(17+parseInt((time-17)/2)).toString();
-                                    if(time%2===0) {
-                                        min="30";
-                                    } else {
-                                        min="00"
-                                    }
-                                }
-                                else  {
-                                    time-=31;
-                                    hr=(parseInt(time/2)).toString();
-                                    if(time%2===1) {
-                                        min="30";
-                                    } else {
-                                        min="00"
-                                    }
-                                } %>
-                                <%  var time2=slot[i].end,hr2=0,min2=0;  %>
-                            <%  if(time2<31) {
-                                    hr2=(17+parseInt((time2-17)/2)).toString();
-                                    if(time2%2===0) {
-                                        min2="30";
-                                    } else {
-                                        min2="00"
-                                    }
-                                }
-                                else  {
-                                    time2-=31;
-                                    hr2=(parseInt(time2/2)).toString();
-                                    if(time2%2===1) {
-                                        min2="30";
-                                    } else {
-                                        min2="00"
-                                    }
-                                } %> 
-                        <a class="dropdown-item" href="/notif">
-                            <span> 
-                               <%= slot[i].owner['username'] %> 
-                                has booked the slot                    
-                                <%= hr+":"+min %> - <%= hr2+":"+min2 %> 
-                           </span>
-                         </a>
-                      <% } %>
+                      <div id="notif-dropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <!-- <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a> -->
                       </div>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/user">
+                      <a class="nav-link" href="user.html">
                         <i class="material-icons">person</i>
                         <p class="d-lg-none d-md-block">
                          Edit Profile
@@ -195,7 +150,6 @@
               </div>
             </div>
           </nav>
-          <!-- End Navbar -->
           <div class="content">
             <div class="container-fluid">
               <!-- your content here -->
@@ -388,6 +342,7 @@
 
       </script>
       <script src="assets/js/cover-song.js"></script>
+      <script src="assets/js/notification.js"></script>
 
     </body>
     
