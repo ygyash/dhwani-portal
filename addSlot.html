@@ -10,27 +10,86 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- Material Kit CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="/public/assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <style>
+        /* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+
+        #chart{
+          overflow: scroll;
+          overflow-y: hidden;
+        }
+        rect.bordered {
+          stroke: #E6E6E6;
+          stroke-width:2px;  
+          overflow: scroll; 
+        }
+  
+        text.mono {
+          font-size: 9pt;
+          font-family: Consolas, courier;
+          fill: #aaa;
+        }
+  
+        text.axis-workweek {
+          fill: #000;
+        }
+  
+        text.axis-worktime {
+          fill: #000;
+        }
+      </style>
+    <link href="assets/css/material-dashboard.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.js'></script>
+    <script src="http://d3js.org/d3.v3.js"></script>
 </head>
 <body class="dark-edition">
     <div class="wrapper ">
-        <div class="sidebar" data-color="purple" data-background-color="black" data-image="public/assets/img/sidebar-2.jpg">
+        <div class="sidebar" data-color="purple" data-background-color="black" data-image="assets/img/sidebar-2.jpg">
           <!--
           Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
     
           Tip 2: you can also add an image using data-image tag
       -->
           <div class="logo" class="simple-text logo-normal">
-                <img src = "/public/assets/img/logo.png" >
+                <img src = "assets/img/logo.png" >
                 <a href="http://www.dhwanibitmesra.in">Dhwani Music Club</a>
           </div>
           <div class="sidebar-wrapper">
             <ul class="nav">
-              
+              <li class="nav-item active  ">
+                <a class="nav-link" href="dashboard.html">
+                  <i class="material-icons">dashboard</i>
+                  <p>Dashboard</p>
+                  
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="notifications.html"><i class="material-icons">notifications</i> <p>Notifications</p></a>
+              </li>
+              <li class="nav-item active">
+                <a href="cover-song.html" class="nav-link"><i class="material-icons"></i> <p>Cover Recommender</p></a>
+              </li>
               <!-- your sidebar here -->
             </ul>
           </div>
@@ -40,7 +99,7 @@
           <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
               <div class="navbar-wrapper">
-                <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
               </div>
               <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,24 +109,44 @@
               </button>
               <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
+                  
+
                   <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">
-                      <i class="material-icons">notifications</i>
-                      <p class="d-lg-none d-md-block">
-                        Notifications
-                      </p>
-                    </a>
-                  </li>
+                      <a class="nav-link" href="dashboard.html">
+                        <i class="material-icons">dashboard</i>
+                        <p class="d-lg-none d-md-block">
+                          Dashboard
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link" href="notifications.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons">notifications</i>
+                        <span id="notif-length" class="notification"></span>
+                        <p class="d-lg-none d-md-block">
+                          Notifications
+                        </p>
+                      </a>
+                      <div id="notif-dropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <!-- <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a> -->
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="user.html">
+                        <i class="material-icons">person</i>
+                        <p class="d-lg-none d-md-block">
+                         Edit Profile
+                        </p>
+                      </a>
+                    </li>
                   <!-- your navbar here -->
                 </ul>
+
               </div>
             </div>
           </nav>
           <!-- End Navbar -->
-          <div class="content">
-            <div class="container-fluid">
-              <!-- your content here -->
-              <div>
+
           
         
 <style>
@@ -116,74 +195,6 @@
                     </th>
                     </thead>
                     <tbody>
-
-<% var arr=[]; %>
-<% for(var i=0;i<interval.length;i++) {  %>
-<%  var time=interval[i].start,hr=0,min=0;  %>
-<%  if(time<31) {
-        hr=(17+parseInt((time-17)/2)).toString();
-        if(time%2===0) {
-            min="30";
-        } else {
-            min="00"
-        }
-    }
-    else  {
-        time-=31;
-        hr=(parseInt(time/2)).toString();
-        if(time%2===1) {
-            min="30";
-        } else {
-            min="00"
-        }
-    } %>
-    <%  var time2=interval[i].end,hr2=0,min2=0;  %>
-<%  if(time2<31) {
-        hr2=(17+parseInt((time2-17)/2)).toString();
-        if(time2%2===0) {
-            min2="30";
-        } else {
-            min2="00"
-        }
-    }
-    else  {
-        time2-=31;
-        hr2=(parseInt(time2/2)).toString();
-        if(time2%2===1) {
-            min2="30";
-        } else {
-            min2="00"
-        }
-    } %>
-   
-    <% arr.push({
-        id: i+1,
-        username: interval[i].owner.username,
-        start: interval[i].start,
-        sttime: hr+":"+min,
-        endtime: hr2+":"+min2
-    }); %>
-<% } %>
-
-<% arr.sort(function(a, b){
-    var keyA = a.start,
-        keyB = b.start;
-    // Compare the 2 dates
-    if(keyA < keyB) return -1;
-    if(keyA > keyB) return 1;
-    return 0;
-});  %>
-
-<% for(var i=0;i<arr.length;i++) { %>
-    <tr>
-    <td><%= i+1 %></td>
-    <td><%= arr[i].username %></td>
-    <td><%= arr[i].sttime %></td>
-    <td><%= arr[i].endtime %></td>
-    </tr>
-<% } %>
-
-
         </tbody>
         </table>
         </div>
@@ -194,7 +205,7 @@
 </div>
 </div>
 
-<form style="width:40%; display:inline-block; padding-top:10px;" onsubmit="return validateform()" method="POST" action="/dashboard/addSlot">
+<form style="width:40%; display:inline-block; padding-top:10px;" id="book-slot-form">
     <h2>Slot</h2>
     <select class="btn btn-info" id="zone" name="duration">
         <option value="one">1.5 hours</option>
@@ -232,71 +243,76 @@ form {
         'maxTime': '5:00am',
     });
 
-    function validateform() {
+    $("#book-slot-form").submit(function(e){
+        e.preventDefault();
         if($("#duration").val()===""||$("zone").val()==="") {
             alert("Please enter a time for booking the slot.");
             return false;
         }
 
-
-
-
-        var timeVal=$("#duration").val();
-        
-
-        var start=0;
-        var start_time=parseInt(timeVal);
-        if(start_time<10) {
-            start=31;
-            start+=start_time*2;
-        }
-        else {
-            start+=17;
-            start+=(start_time-17)*2;
-        }
-        if(timeVal.charAt(3)==='3') {
-            start+=1;
-        }
-        var duration=$("#zone").val();
-        var end=0;
-        if(duration==='one') {
-            end=start+3;
-        } else {
-            end=start+4;
-        }
-        start=parseInt(start);
-        end=parseInt(end);
-           
-        var flag=true;
-        var arrs=[],arre=[];
-
-
-        <% for(var i=0;i<interval.length;i++) { %>
-            arrs.push(<%= interval[i].start %>);
-            arre.push(<%= interval[i].end %>);
-        <% } %>
-
-        for(var i=0;i<arrs.length;i++) {
-            if(start>=arrs[i] && start< arre[i] && end>= arre[i] ) {
-                flag = false;
+        var requrl="http://localhost:5000";
+        $.ajax({
+            type: 'GET',
+              url : requrl+"/notifNumber"
+        }).done(function(res){
+            if(res.success==false) {
+                return console.log("Some Error");
             }
-            if(start<arrs[i]&&end>arrs[i]&&end<=arre[i]) {
-                flag = false;
+            var timeVal=$("#duration").val();
+            var start=0;
+            var start_time=parseInt(timeVal);
+            if(start_time<10) {
+                start=31;
+                start+=start_time*2;
             }
-            if(start<=arrs[i]&&end>=arre[i]) {
-                flag = false;
+            else {
+                start+=17;
+                start+=(start_time-17)*2;
             }
-            if(start>=arrs[i]&&start<=arre[i]&&end<=arre[i]&&end>=arrs[i]) {
-                flag=false;
+            if(timeVal.charAt(3)==='3') {
+                start+=1;
             }
-        }
-
-
-        if(flag===false) {
-            alert("");
+            var duration=$("#zone").val();
+            var end=0;
+            if(duration==='one') {
+                end=start+3;
+            } else {
+                end=start+4;
+            }
+            start=parseInt(start);
+            end=parseInt(end);
+            var flag=true;
+            var arrs=[],arre=[];
+            for(var i=0;i<res.slot.length;i++) {
+                arrs.push(res.slot[i].start);
+                arre.push(res.slot[i].end);
+            }
+            for(var i=0;i<arrs.length;i++) {
+                if(start>=arrs[i] && start< arre[i] && end>= arre[i] ) {
+                    flag = false;
+                }
+                if(start<arrs[i]&&end>arrs[i]&&end<=arre[i]) {
+                    flag = false;
+                }
+                if(start<=arrs[i]&&end>=arre[i]) {
+                    flag = false;
+                }
+                if(start>=arrs[i]&&start<=arre[i]&&end<=arre[i]&&end>=arrs[i]) {
+                    flag=false;
+                }
+            }
+            if(flag===false) {
+                alert("Slots Interval Intersection");
+                return false;
+            }
+            bookSlot(start,end);
             return false;
-        }
-        return true;
+        });
+        return false;
+    });
+
+    function bookSlot(start,end) {
+        console.log(start,end); // POST AJAX
     }
 </script>
 
@@ -316,24 +332,24 @@ form {
 </footer>
 </div>
 </div>
-    <script src = "/public/assets/js/main.js"></script>
-  <script src="/public/assets/js/core/jquery.min.js"></script>
-  <script src="/public/assets/js/core/popper.min.js"></script>
-  <script src="/public/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src = "assets/js/main.js"></script>
+  <script src="assets/js/core/jquery.min.js"></script>
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="/public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chartist JS -->
-  <script src="/public/assets/js/plugins/chartist.min.js"></script>
+  <script src="assets/js/plugins/chartist.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="/public/assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/public/assets/js/material-dashboard.js?v=2.1.0"></script>
+  <script src="assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/public/assets/demo/demo.js"></script>
+  <script src="assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -498,5 +514,28 @@ form {
   </script>
 </body>
 
-<script src="/public/assets/js/add-slot.js"></script>
+<script src="assets/js/add-slot.js"></script>
+<script>
+    var requrl="http://localhost:5000";
+        $.ajax({
+            type: 'GET',
+              url : requrl+"/notif"
+        }).done(function(res) {
+            if(res.success==false) {
+                return console.log("Some Error");
+            }
+            res.data.sort(function(a, b){
+                var keyA = a.start,
+                    keyB = b.start;
+                // Compare the 2 dates
+                if(keyA < keyB) return -1;
+                if(keyA > keyB) return 1;
+                return 0;
+            });
+            for(var i=1;i<=res.data.length;i++) {
+                $(".card-body tbody").append("<tr><td>"+i+"</td><td>"+res.data[i-1].owner+"</td><td>"+res.data[i-1].start+"</td><td>"+res.data[i-1].end+"</td></tr>");
+            }
+        });
+       
+    </script>
 </html>
