@@ -3,10 +3,10 @@
 
 var express=require("express");
 var app=express();
+var cors = require('cors');
 var bodyParser=require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine","ejs");
-//static files 
 
 app.use('/public', express.static('public'));
 
@@ -16,6 +16,10 @@ var mongoose=require("mongoose");
 var mongoDB="mongodb://dhwani:dhwanibitm123@ds235180.mlab.com:35180/dhwani";
 mongoose.connect(mongoDB,{ useNewUrlParser: true });
 
+/**
+ * CORS middleware. This is important for letting the UI and APIs on separate domain.
+ */
+app.use(cors());
 
 
 // Models
@@ -56,7 +60,7 @@ app.use(indexRoute);
 app.use(dashboardRoute);
 app.use(notifRoute);
 app.use(userRoute);
-app.use(coverRoute)
+app.use(coverRoute);
 
 app.listen(5000,function(){
     console.log("Server Running on Local host 5000");

@@ -14,9 +14,6 @@ var passport=require("passport");
 
 //user routing
 router.get("/user",function(req,res){
-   if(req.isAuthenticated()==false){
-            res.redirect("/");
-   }
    console.log("User page loading.")
   Slot.find({},function(err,slot){
       if(err){

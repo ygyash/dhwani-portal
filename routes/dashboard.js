@@ -12,11 +12,19 @@ var User=require("../models/user.js");
 
 var passport=require("passport");
 
+router.get("/dashboard/slotsBooked",function(req,res){
+    User.find({},function(err,user){
+        if(err){
+            console.log(err);
+            return res.status(200).send({
+                success: false
+            }); 
+        }
+        return res.status(200).send({success:true,len:user.length});
+    });
+});
 
-router.get("/dashboard/addSlot",function(req,res){
-    if(req.isAuthenticated()===false){
-        return res.redirect("/");
-    }
+router.get("/dashboard/getSlots",function(req,res){
     Slot.find({"owner.id": req.user._id},function(err,slot){
         if(err) {
             console.log(err);
@@ -25,7 +33,6 @@ router.get("/dashboard/addSlot",function(req,res){
         else {
             if(slot.length>0) {
                 console.log("Done for the day!");
-                
                 res.redirect("/");
             }
             else {
@@ -33,19 +40,15 @@ router.get("/dashboard/addSlot",function(req,res){
                     if(err) {
                         return res.redirect("/");
                     } else {
-                        res.render("addSlot.ejs",{interval:interval});
-                    }
+                        res.render("addSlot.ejs",{interval:interval}); // duration not whole
+                    } // One
                 });
-                
             }
         }
     });
 });
 
 router.post("/dashboard/addSlot",function(req,res){
-    if(req.isAuthenticated()===false) {
-        return res.redirect("/");
-    }
     Slot.find({"owner.id": req.user._id},function(err,slot){
         if(err) {
             console.log(err);

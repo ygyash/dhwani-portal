@@ -271,10 +271,10 @@ form {
         var arrs=[],arre=[];
 
 
-        <% for(var i=0;i<interval.length;i++) { %>
-            arrs.push(<%= interval[i].start %>);
-            arre.push(<%= interval[i].end %>);
-        <% } %>
+        for(var i=0;i<interval.length;i++) {
+            arrs.push(interval[i].start);
+            arre.push(interval[i].end);
+        }
 
         for(var i=0;i<arrs.length;i++) {
             if(start>=arrs[i] && start< arre[i] && end>= arre[i] ) {

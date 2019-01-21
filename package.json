@@ -19,6 +19,7 @@
   "homepage": "https://github.com/skbro/dhwani-portal#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "d3": "^5.7.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
