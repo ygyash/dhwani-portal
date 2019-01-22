@@ -228,6 +228,9 @@ $(window).ready(function(){
 
 
 $("#submit").click(function(e){
+    let loadingText="<i class='fa fa-circle-o-notch fa-spin'></i> Loading.."
+    $(this).html(loadingText);
+    $(this).prop('disabled',true);
     e.preventDefault();
     $("#submit").attr('id',"");
 var acousticness = parseFloat($("#acousticness").html())*1.00/100;

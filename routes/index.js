@@ -12,12 +12,7 @@ var User=require("../models/user.js");
 
 var passport=require("passport");
 
-router.get("/login",(req,res)=> {
-    if(req.isAuthenticated()===false) {
-        return res.redirect("/public/login.html");
-    }
-    res.redirect('/dashboard');
-});
+
 
 router.get("/",function(req,res){
     if(req.isAuthenticated()){
@@ -40,11 +35,7 @@ router.post("/signup",function(req,res){
             console.log(err);
             return res.redirect("/");
         }
-        passport.authenticate("local")(req,res,function(){
-            res.status(200).json({
-                
-            });
-        });
+        res.redirect("/login");
     });
 });
 
@@ -52,22 +43,27 @@ router.get("/dashboard",function(req,res){
     if(req.isAuthenticated()===false){
         return res.redirect("/");
     }
-    console.log(req.user);
+    //console.log(req.user);
     res.redirect('/public/dashboard.html');
+});
+
+router.get("/login",(req,res)=> {
+    if(req.isAuthenticated()===false) {
+        return res.redirect("/public/login.html");
+    }
+    res.redirect('/dashboard');
 });
 
 router.post("/login",passport.authenticate("local",{
     successRedirect: "/dashboard",
     failureRedirect: "/login"
 }),function(req,res) {
-    console.log(req.user);
+    //console.log(req.user);
 });
 
 router.get("/logout",function(req,res){
     req.logout();
-    res.status(200).json({
-        logout: true
-    });
+    res.redirect('/');
 });
 
 module.exports=router;

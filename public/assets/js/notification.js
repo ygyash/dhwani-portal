@@ -6,6 +6,7 @@ $(window).ready(function(){
       }).done(function(res){
           if(res.success==false) {
               alert(res.msg);
+              window.location.href = "login.html";
               return;
           }
           
@@ -18,6 +19,7 @@ $(window).ready(function(){
       }).done(function(res){
           if(res.success==false) {
             alert(res.msg);
+            window.location.href = "login.html";
             return;
           }
           res.data.forEach(slot => {

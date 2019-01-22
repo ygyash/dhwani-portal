@@ -169,10 +169,42 @@
 
 </style>
 
-<div class="content" style="width:60%; float: right">
+<div class="content">
     <div class="container-fluid">
         <div class="row">
-        <div class="col-md-12">
+          <div class="col-md-1"></div>
+          <div class="col-md-4" style="text-align: center;">
+              <div class="card">
+                  <div  style="background :#00bcd4" class="card-header card-header-primary">
+                      <h4 class="card-title ">Slots</h4>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                      <table class="table">
+                          <form id="book-slot-form">
+                              <div class="input-group">
+                                <input id="zone" name="duration" class="form-control" type="text" list="duration-list" placeholder="Duration" style="color:rgb(93, 93, 148);">
+                                    <datalist id="duration-list">
+                                        <option value="1.5 Hours"></option>
+                                        <option value="2 Hours" >2 Hours</option>
+                                    </datalist>
+                          
+                            </div>
+                            <br>
+                              <input class="form-control time ui-timepicker-input" id="duration" type="text" name="start" autocomplete="off" placeholder="Start Time">
+                              <br>
+                              <button class="btn btn-success">Add</button>
+                          </form>
+                          <tbody>
+              </tbody>
+              </table>
+              </div>
+          </div>
+          </div>
+              
+          </div>
+          <div class="col-md-1"></div>
+        <div class="col-md-6">
             <div class="card">
             <div  style="background :#00bcd4" class="card-header card-header-primary">
                 <h4 class="card-title ">Booked Slots</h4>
@@ -194,7 +226,7 @@
                         End Time
                     </th>
                     </thead>
-                    <tbody>
+                    <tbody id="booked-slots-table">
         </tbody>
         </table>
         </div>
@@ -205,35 +237,8 @@
 </div>
 </div>
 
-<form style="width:40%; display:inline-block; padding-top:10px;" id="book-slot-form">
-    <h2>Slot</h2>
-    <select class="btn btn-info" id="zone" name="duration">
-        <option value="one">1.5 hours</option>
-        <option value="two">2 hours</option>
-    </select>
-    <input class="btn btn-warning" id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Start Time">
-    <button class="btn btn-success">Add</button>
-</form>
 
 <style>
-
-h2, select, #duration, form button {
-  margin-bottom: 10%;
-  font-family: Cursive;
-  display: block;
-    width: 80%;
-    text-align: center;
-}
-
-select {
-    padding-left: 25% !important;
-    border-radius: 5%;
-}
-
-form {
-    padding: 10%;
-}
-
 </style>
 
 <script>
@@ -274,7 +279,7 @@ form {
             }
             var duration=$("#zone").val();
             var end=0;
-            if(duration==='one') {
+            if(duration==='1.5 Hours') {
                 end=start+3;
             } else {
                 end=start+4;
@@ -537,6 +542,7 @@ form {
         }).done(function(res) {
             if(res.success==false) {
                 alert(res.msg);
+                window.location.href = "login.html";
                 return;
             }
             res.data.sort(function(a, b){
@@ -548,9 +554,11 @@ form {
                 return 0;
             });
             for(var i=1;i<=res.data.length;i++) {
-                $(".card-body tbody").append("<tr><td>"+i+"</td><td>"+res.data[i-1].owner+"</td><td>"+res.data[i-1].start+"</td><td>"+res.data[i-1].end+"</td></tr>");
+                $("#booked-slots-table").append("<tr><td>"+i+"</td><td>"+res.data[i-1].owner+"</td><td>"+res.data[i-1].start+"</td><td>"+res.data[i-1].end+"</td></tr>");
             }
         });
        
+    </script>
+    <script src="./assets/js/notification.js">
     </script>
 </html>
