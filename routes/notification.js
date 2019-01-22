@@ -13,13 +13,8 @@ var User=require("../models/user.js");
 var passport=require("passport");
 
 router.get("/notif",function(req,res){
-<<<<<<< HEAD
     console.log("Notification page loading.")
     console.log(req.user);
-=======
-    //console.log("Notification page loading.")
-
->>>>>>> 928adb945dfb689855ac45267ce765abecedfab8
     
     Slot.find({},function(err,slot){
         if(err){

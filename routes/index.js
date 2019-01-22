@@ -35,7 +35,9 @@ router.post("/signup",function(req,res){
             return res.redirect("/");
         }
         passport.authenticate("local")(req,res,function(){
-            res.redirect("/dashboard");
+            res.status(200).json({
+                
+            });
         });
     });
 });
@@ -72,14 +74,14 @@ router.post("/login",passport.authenticate("local",{
 });
 
 router.get("/successLogin",function(req,res){
-    //console.log(req);
+    console.log("sssssssssssss");
     res.status(200).json({
         success:true
         //username:req.user.username
     })
 });
 router.get("/failedLogin",function(req,res){
-    //console.log(res);
+    console.log("fffffffffffff");
     res.status(200).json({
         success : false
     })

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- Material Kit CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="/public/assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <link href="assets/css/material-dashboard.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/timepicker@1.11.12/jquery.timepicker.min.js'></script>
@@ -25,7 +25,7 @@
           Tip 2: you can also add an image using data-image tag
       -->
           <div class="logo" class="simple-text logo-normal">
-                <img src = "/public/assets/img/logo.png" >
+                <img src = "assets/img/logo.png" >
                 <a href="http://www.dhwanibitmesra.in">Dhwani Music Club</a>
           </div>
           <div class="sidebar-wrapper">
@@ -79,25 +79,25 @@
             <p class="card-category">Fill the details of your Band</p>
           </div>
           <div class="card-body">
-            <form method="POST" action = "/signup" > 
+            <form> 
               <div class="row">
                 
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="bmd-label-floating">Username</label>
-                    <input type="text" name="username" placeholder="Username" class="form-control">
+                    <input id="reg-username" type="text" name="username" placeholder="Username" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label class="bmd-label-floating">Password</label>
-                    <input type="password" name="password" placeholder="Password" class="form-control">
+                    <input id="reg-password" type="password" name="password" placeholder="Password" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="bmd-label-floating">Email address</label>
-                    <input type="email" name="email" class="form-control">
+                    <input id="reg-email" type="email" name="email" class="form-control">
                   </div>
                 </div>
               </div>
@@ -105,17 +105,17 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="bmd-label-floating">First Name</label>
-                    <input type="text" name="firstName" class="form-control">
+                    <input id="reg-fname" type="text" name="firstName" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="bmd-label-floating">Last Name</label>
-                    <input type="text" name="lastName" class="form-control">
+                    <input id="reg-lname" type="text" name="lastName" class="form-control">
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary pull-right">Sign Up</button>
+              <button id="signup-btn" class="btn btn-primary pull-right">Sign Up</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -140,24 +140,24 @@
 </footer>
 </div>
 </div>
-    <script src = "/public/assets/js/main.js"></script>
-  <script src="/public/assets/js/core/jquery.min.js"></script>
-  <script src="/public/assets/js/core/popper.min.js"></script>
-  <script src="/public/assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src = "assets/js/main.js"></script>
+  <script src="assets/js/core/jquery.min.js"></script>
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="/public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chartist JS -->
-  <script src="/public/assets/js/plugins/chartist.min.js"></script>
+  <script src="assets/js/plugins/chartist.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="/public/assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/public/assets/js/material-dashboard.js?v=2.1.0"></script>
+  <script src="assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/public/assets/demo/demo.js"></script>
+  <script src="assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -319,6 +319,14 @@
         });
       });
     });
+  </script>
+  <script>
+    $("#signup-btn").on('click',function(e){
+      e.preventDefault();
+      $.ajax({
+        type: ''
+      })
+    })
   </script>
 </body>
 </html>
