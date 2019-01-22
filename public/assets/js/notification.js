@@ -5,7 +5,8 @@ $(window).ready(function(){
             url : "/dashboard/slotsBooked"
       }).done(function(res){
           if(res.success==false) {
-              return console.log("Some Error");
+              alert(res.msg);
+              return;
           }
           
           $("#notif-length").html(res.len);
@@ -13,13 +14,11 @@ $(window).ready(function(){
 
     $.ajax({
         type: 'GET',
-        url : requrl+"/notif"
+        url : "/notif"
       }).done(function(res){
           if(res.success==false) {
-              return console.log("Some Error");
-          }
-          else{
-            console.log(res.data);
+            alert(res.msg);
+            return;
           }
           res.data.forEach(slot => {
             $("#notif-dropdown").append("<a class=\"dropdown-item\">"+slot.owner+" booked the slot from "+slot.start+" to "+slot.end+"</a>");

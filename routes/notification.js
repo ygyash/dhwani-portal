@@ -13,15 +13,19 @@ var User=require("../models/user.js");
 var passport=require("passport");
 
 router.get("/notif",function(req,res){
-    console.log("Notification page loading.")
-    console.log(req);
+    if(req.isAuthenticated()===false) {
+        return res.status(200).json({success:false,msg:"Not Logged in!"});
+    }
+    //console.log("Notification page loading.")
+    //console.log(req);
     
     Slot.find({},function(err,slot){
         if(err){
             console.log(err);
-            return res.status(200).json({
-                success: false
-            })
+            return res.status(200).send({
+                success: false,
+                msg: "Interval Server Error!"
+            }); 
         }
         var slotObject = [];
     
@@ -93,17 +97,21 @@ router.get("/notif",function(req,res){
         res.status(200).json({
             success:true,
             data:slotObject
-        })
+        });
     });
 });
 
 router.get("/notifNumber",function(req,res){
+    if(req.isAuthenticated()===false) {
+        return res.status(200).json({success:false,msg:"Not Logged in!"});
+    }
     Slot.find({},function(err,slot){
         if(err){
             console.log(err);
-            return res.status(200).json({
-                success: false
-            });
+            return res.status(200).send({
+                success: false,
+                msg: "Interval Server Error!"
+            }); 
         }
         res.status(200).json({success:true,slot}); 
     });

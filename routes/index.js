@@ -30,7 +30,7 @@ router.get("/signup",function(req,res){
     if(req.isAuthenticated()){
         return res.redirect("/dashboard");
     }
-    res.render("signup.ejs");
+    res.redirect("/public/signup.html");
 });
 
 router.post("/signup",function(req,res){

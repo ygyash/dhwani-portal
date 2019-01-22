@@ -146,42 +146,191 @@
             </div>
           </nav>
           <!-- End Navbar -->
-          <div class="content">
-            <div class="container-fluid">
-              <!-- your content here -->
-              
+
           
         
-<div>
-<h1 id="user-dash">Slot Timings</h1>
+<style>
 
+@media only screen and (max-width: 600px) {
+    .content {
+        width: 100% !important;
+    }
+    h2, select, #duration, form button {
+        width: 100% !important;
+    }
+    form {
+        width: 100% !important;
+        padding: 10% !important;
+    }
+    form select {
+        padding-left: 40% !important;
+    }
+}
 
+</style>
 
-
-
-<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-    <div class="card card-stats">
-      <div class="card-header card-header-warning card-header-icon">
-        <div class="card-icon">
-          <i class="material-icons">content_copy</i>
+<div class="content" style="width:60%; float: right">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+            <div  style="background :#00bcd4" class="card-header card-header-primary">
+                <h4 class="card-title ">Booked Slots</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Start Time
+                    </th>
+                    <th>
+                        End Time
+                    </th>
+                    </thead>
+                    <tbody>
+        </tbody>
+        </table>
         </div>
-        <p class="card-category">Slots booked</p>
-        <h3 class="card-title" id="slot-length"> <!-- Slot Length-->
-          <small>Slots</small>
-        </h3>
-      </div>
-      <div class="card-footer">
-        <div class="stats">
-          <i class="material-icons text-warning">warning</i>
-          <a class="warning-link">Add slots as soon as possible</a>
-        </div>
-      </div>
     </div>
-  </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
 
-    <a href="addSlot.html" value="Book Today's Slot" class="btn btn-danger">Book Today's Slot</a> 
- 
-<a href="/logout" id="logout" class="btn btn-primary">Log Out</a>
+<form style="width:40%; display:inline-block; padding-top:10px;" id="book-slot-form">
+    <h2>Slot</h2>
+    <select class="btn btn-info" id="zone" name="duration">
+        <option value="one">1.5 hours</option>
+        <option value="two">2 hours</option>
+    </select>
+    <input class="btn btn-warning" id="duration" type="text" name="start" class="time ui-timepicker-input" autocomplete="off" placeholder="Start Time">
+    <button class="btn btn-success">Add</button>
+</form>
+
+<style>
+
+h2, select, #duration, form button {
+  margin-bottom: 10%;
+  font-family: Cursive;
+  display: block;
+    width: 80%;
+    text-align: center;
+}
+
+select {
+    padding-left: 25% !important;
+    border-radius: 5%;
+}
+
+form {
+    padding: 10%;
+}
+
+</style>
+
+<script>
+    $('#duration').timepicker({ 
+        'timeFormat': 'H:i',
+        'minTime': '6:00pm',
+        'maxTime': '5:00am',
+    });
+
+    $("#book-slot-form").submit(function(e){
+        e.preventDefault();
+        if($("#duration").val()===""||$("zone").val()==="") {
+            alert("Please enter a time for booking the slot.");
+            return false;
+        }
+
+        var requrl="http://localhost:5000";
+        $.ajax({
+            type: 'GET',
+              url : requrl+"/notifNumber"
+        }).done(function(res){
+            if(res.success==false) {
+                return console.log("Some Error");
+            }
+            var timeVal=$("#duration").val();
+            var start=0;
+            var start_time=parseInt(timeVal);
+            if(start_time<10) {
+                start=31;
+                start+=start_time*2;
+            }
+            else {
+                start+=17;
+                start+=(start_time-17)*2;
+            }
+            if(timeVal.charAt(3)==='3') {
+                start+=1;
+            }
+            var duration=$("#zone").val();
+            var end=0;
+            if(duration==='one') {
+                end=start+3;
+            } else {
+                end=start+4;
+            }
+            start=parseInt(start);
+            end=parseInt(end);
+            var flag=true;
+            var arrs=[],arre=[];
+            for(var i=0;i<res.slot.length;i++) {
+                arrs.push(res.slot[i].start);
+                arre.push(res.slot[i].end);
+            }
+            for(var i=0;i<arrs.length;i++) {
+                if(start>=arrs[i] && start< arre[i] && end>= arre[i] ) {
+                    flag = false;
+                }
+                if(start<arrs[i]&&end>arrs[i]&&end<=arre[i]) {
+                    flag = false;
+                }
+                if(start<=arrs[i]&&end>=arre[i]) {
+                    flag = false;
+                }
+                if(start>=arrs[i]&&start<=arre[i]&&end<=arre[i]&&end>=arrs[i]) {
+                    flag=false;
+                }
+            }
+            if(flag===false) {
+                alert("Slots Interval Intersection");
+                return false;
+            }
+            bookSlot(start,end);
+            return false;
+        });
+        return false;
+    });
+
+    function bookSlot(start,end) {
+        $.ajax({
+            type: "POST",
+            url: "/dashboard/addSlot",
+            data: {
+                start:start,
+                end: end
+            },
+            success: function(res) {
+                if(res.msg==false) {
+                    return alert(res.msg);
+                }
+                alert(res.msg);
+                window.location.href="dashboard.html";
+            }
+        });
+        console.log(start,end); // POST AJAX
+    }
+</script>
+
 </div>
 </div>
 </div>
@@ -216,7 +365,6 @@
   <script src="assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
-  <script src="assets/js/notification.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -379,17 +527,30 @@
       });
     });
   </script>
-  <script>
-      $.ajax({
-          type: 'GET',
-            url : "/dashboard/slotsBooked"
-      }).done(function(res){
-          if(res.success==false) {
+</body>
+
+<script src="assets/js/add-slot.js"></script>
+<script>
+        $.ajax({
+            type: 'GET',
+              url : "/notif"
+        }).done(function(res) {
+            if(res.success==false) {
                 alert(res.msg);
                 return;
-          }
-          $("#slot-length").html(res.len+"&nbsp;<small>Slots</small>");
-      });
-  </script>
-</body>
+            }
+            res.data.sort(function(a, b){
+                var keyA = a.start,
+                    keyB = b.start;
+                // Compare the 2 dates
+                if(keyA < keyB) return -1;
+                if(keyA > keyB) return 1;
+                return 0;
+            });
+            for(var i=1;i<=res.data.length;i++) {
+                $(".card-body tbody").append("<tr><td>"+i+"</td><td>"+res.data[i-1].owner+"</td><td>"+res.data[i-1].start+"</td><td>"+res.data[i-1].end+"</td></tr>");
+            }
+        });
+       
+    </script>
 </html>
