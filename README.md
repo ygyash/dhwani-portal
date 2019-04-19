@@ -4,5 +4,5 @@ A website for managing the slots in the music room for the Dhwani Music Club, BI
 It also provided a Cover Recommender for the Bands performing according to their abilities and interest.
 
 # Tools Used
-Backend - Node.js
+Backend - Node.js <br>
 API - Spotify API was used for getting the recommendations of the tracks according to their attributes. 
