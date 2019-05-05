@@ -1,5 +1,5 @@
 # Dhwani Ultimate portal
-*A portal made for the Music Club of BIT Mesra which is used for recommending songs to a Band for performances according to their needs. It is also used for booking day to day slots of the music room. Mainly worked on the song recommendation part of the project.*
+*A portal made for the Music Club of BIT Mesra which is used for recommending songs to a Band for performances according to their needs. It is also used for booking day to day slots of the music room. *
 
 ## Project Idea
 
