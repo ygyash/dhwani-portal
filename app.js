@@ -55,10 +55,12 @@ var indexRoute=require("./routes/index.js");
 var dashboardRoute=require("./routes/dashboard.js");
 var notifRoute = require("./routes/notification.js");
 var userRoute = require("./routes/userpage.js");
+var spotifyRoute = require("./routes/spotifyapi.js");
 app.use(indexRoute);
 app.use(dashboardRoute);
 app.use(notifRoute);
 app.use(userRoute);
+app.use(spotifyRoute);
 
 
 app.listen(PORT,function(){
