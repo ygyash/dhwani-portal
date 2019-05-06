@@ -11,7 +11,7 @@ app.set("view engine","ejs");
 var {secretKey} = require('./config.js');
 app.use('/public', express.static('public'));
 
-
+const PORT = process.env.PORT || 5000;
 
 /**
  * CORS middleware. This is important for letting the UI and APIs on separate domain.
@@ -61,6 +61,6 @@ app.use(notifRoute);
 app.use(userRoute);
 
 
-app.listen(5000,function(){
-    console.log("Server Running on Local host 5000");
+app.listen(PORT,function(){
+    console.log(`Server Running on Local host ${ PORT } `);
 });
