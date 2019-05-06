@@ -5,18 +5,18 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skbro/dhwani-portal.git"
+    "url": "git+https://github.com/ygyash/dhwani-portal.git"
   },
   "author": "Sanskar Agarwal, Yash Goyal",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/skbro/dhwani-portal/issues"
+    "url": "https://github.com/ygyash/dhwani-portal/issues"
   },
-  "homepage": "https://github.com/skbro/dhwani-portal#readme",
+  "homepage": "https://github.com/ygyash/dhwani-portal#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
