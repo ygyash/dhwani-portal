@@ -2,7 +2,7 @@ var client_id = 'cfc03335d19e4df6802ddd464fbd27ac';
 var client_secret = 'aead85ca76d64466a4194d53c799e5a8';
 var seed_tracks = [];
 var seed_artists=[];
-var requrl = "dhwaniportal.herokuapp.com"
+var requrl = "";
 
 
 
