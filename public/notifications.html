@@ -375,7 +375,7 @@
           url : requrl+"/notif"
         }).done(function(res){
             if(res.success==false) {
-                return console.log("Some Error");
+                return console.log(res.msg);
             }
             else{
               console.log(res.data);

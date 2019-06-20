@@ -94,6 +94,8 @@ router.get("/notif", function (req, res) {
         }
         //console.log("Notification page loaded.");
         //console.log(slotObject);
+
+
         res.status(200).json({
             success: true,
             data: slotObject
