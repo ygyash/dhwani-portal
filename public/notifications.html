@@ -375,7 +375,8 @@
           url : requrl+"/notif"
         }).done(function(res){
             if(res.success==false) {
-                return console.log(res.msg);
+                alert("Internal Server Error");
+                return console.log("Internal Server Error!");
             }
             else{
               console.log(res.data);
