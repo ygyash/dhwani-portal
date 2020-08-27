@@ -43,14 +43,12 @@ passport.deserializeUser(User.deserializeUser());
 
 var mongoDB = require('./config.js').mongoDB;
 // Enable data of user
-
 app.use(function(req,res,next){
     res.locals.currentUser=req.user;
     next();
 });
 
 // Routes
-
 var indexRoute=require("./routes/index.js");
 var dashboardRoute=require("./routes/dashboard.js");
 var notifRoute = require("./routes/notification.js");
